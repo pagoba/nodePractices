@@ -51,7 +51,7 @@ let getSalario = (empleado) =>
                     //regresa un objeto
                     {
                         nombre: empleado.nombre,
-                        salario: salarioDB.salario,
+                        salario: salarioDB.salarios,
                         id: empleado.id
                     }
                 );
@@ -60,15 +60,16 @@ let getSalario = (empleado) =>
     )
 }
 
-getEmpleado(3).then(empleado=>{
-    console.log('Empleado de la DB: ', empleado);
-    getSalario(empleado).then(
-        resp => {
-            console.log(empleado);
-        },(e)=>{
-            console.log(e);
-        }
-    )
-},(err)=>{
-    console.log(err);
-});
+getEmpleado(1).then(empleado=>{
+    return getSalario(empleado);
+})
+.then(
+    resp => {
+        console.log(`id: ${resp.id}\nnombre: ${resp.nombre}\nsalario: ${resp.salario}`);
+        //console.log(`El salario de ${resp.nombre} es de ${resp.salario}`);
+    }
+)
+.catch(e => {
+    console.log(e);
+}
+);
